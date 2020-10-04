@@ -3,9 +3,8 @@ package com.example.airbase.api;
 import com.example.airbase.domain.Airbase;
 import com.example.airbase.domain.AirbaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,9 +24,14 @@ public class AirbaseController {
         return this.service.findAll();
     }
 
-    @GetMapping("/test")
-    private String t() {
-        return "tttt";
+    @GetMapping("/{id}")
+    public ResponseEntity<Airbase> read(@PathVariable("id") Long id) {
+        Airbase foundAirbase = service.findById(id);
+        if (foundAirbase == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(foundAirbase);
+        }
     }
 
 }

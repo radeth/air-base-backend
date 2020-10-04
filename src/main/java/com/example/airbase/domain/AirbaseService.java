@@ -17,4 +17,8 @@ public class AirbaseService {
     public List<Airbase> findAll(){
         return this.repository.findAll();
     }
+
+    public Airbase findById(Long id){
+        return this.repository.findAirbaseById(id);
+    }
 }
